@@ -46,3 +46,40 @@ const merge = (left, right) => {
       }
     return x.concat(left.slice(indexLeft)).concat(right.slice(indexRight))
 }
+
+export const heapSort = x => {
+    maxHeap(x, x.length)
+    swap(x, 0, x.length-1)
+
+    for(let i = x.length - 2; i >= 0; i--) {
+        maxHeap(x, i)
+        swap(x, 0, i)
+    }
+    swap(x, 0 , 1)
+}
+
+const maxHeap = (x, length) => {
+    let lastParent = Math.floor((length / 2) - 1)
+
+    while(lastParent >= 0) {
+        let left = (2 * lastParent) + 1
+        let right = (2 * lastParent) + 2
+        let largest = 0
+
+        if(x.length - 1 < right && x[left] > x[lastParent]) largest = left
+
+        if(x[left] > x[right] && x[left] > x[lastParent]) largest = left
+
+        if(x[left] < x[right] && x[right] > x[lastParent]) largest = right
+
+        swap(x, lastParent, largest)
+
+        lastParent--
+    }
+}
+
+const swap = (x, lastParent, largest) => {
+    let y = x[lastParent]
+    x[lastParent] = x[largest]
+    x[largest] = y
+}
