@@ -48,38 +48,39 @@ const merge = (left, right) => {
 }
 
 export const heapSort = x => {
-    maxHeap(x, x.length)
-    swap(x, 0, x.length-1)
+    
+    let n = x.length
 
-    for(let i = x.length - 2; i >= 0; i--) {
-        maxHeap(x, i)
+    for(let i = Math.floor((n / 2) - 1); i >= 0; i--) {
+        maxHeap(x, n, i)
+    }
+
+    for(let i = n - 1; i > 0; i--) {
         swap(x, 0, i)
+        n--
+        maxHeap(x, n, 0)
     }
-    swap(x, 0 , 1)
+    return x
 }
 
-const maxHeap = (x, length) => {
-    let lastParent = Math.floor((length / 2) - 1)
+const maxHeap = (x, n, i) => {
 
-    while(lastParent >= 0) {
-        let left = (2 * lastParent) + 1
-        let right = (2 * lastParent) + 2
-        let largest = 0
+    let max = i
+    let left = (2 * i) + 1
+    let right = (2 * i) + 2
 
-        if(x.length - 1 < right && x[left] > x[lastParent]) largest = left
+    if(left < n && x[left] > x[max]) max = left
+    
+    if(right < n && x[right] > x[max]) max = right
 
-        if(x[left] > x[right] && x[left] > x[lastParent]) largest = left
-
-        if(x[left] < x[right] && x[right] > x[lastParent]) largest = right
-
-        swap(x, lastParent, largest)
-
-        lastParent--
+    if(max != i) {
+        swap(x, max, i)
+        maxHeap(x, n, max)
     }
 }
 
-const swap = (x, lastParent, largest) => {
-    let y = x[lastParent]
-    x[lastParent] = x[largest]
-    x[largest] = y
+const swap = (x, i, j) => {
+    let temp = x[i]
+    x[i] = x[j]
+    x[j] = temp
 }
