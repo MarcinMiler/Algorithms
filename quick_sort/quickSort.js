@@ -1,3 +1,5 @@
+import { swap } from '../utils/swap'
+
 export const quickSort = x => {
     quick(x, 0, x.length - 1)
     return x
@@ -30,10 +32,4 @@ const midPivot = (x, left, right) => {
     const pivotValue = x[pivot]
     swap(x, pivot, right)
     return pivotValue
-}
-
-const swap = (x, i, j) => {
-    let temp = x[i]
-    x[i] = x[j]
-    x[j] = temp
 }

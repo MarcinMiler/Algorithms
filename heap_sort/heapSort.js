@@ -1,3 +1,5 @@
+import { swap } from '../utils/swap'
+
 export const heapSort = x => {
     
     let n = x.length
@@ -28,10 +30,4 @@ const maxHeap = (x, n, i) => {
         swap(x, max, i)
         maxHeap(x, n, max)
     }
-}
-
-const swap = (x, i, j) => {
-    let temp = x[i]
-    x[i] = x[j]
-    x[j] = temp
 }
