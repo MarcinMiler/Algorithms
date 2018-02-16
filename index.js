@@ -73,7 +73,7 @@ const maxHeap = (x, n, i) => {
     
     if(right < n && x[right] > x[max]) max = right
 
-    if(max != i) {
+    if(max !== i) {
         swap(x, max, i)
         maxHeap(x, n, max)
     }
@@ -85,29 +85,37 @@ const swap = (x, i, j) => {
     x[j] = temp
 }
 
-export const standardQuickSort = x => {
-    standardQuick(x, 0, x.length - 1)
+export const quickSort = x => {
+    quick(x, 0, x.length - 1)
     return x
 }
 
-const standardQuick = (x, left, right) => {
+const quick = (x, left, right) => {
     if(left >= right) return
 
-    let pivot = x[right]
+    let pivot = midPivot(x, left, right)
     let border = left - 1
     let i = left
 
     while(i < right) {
         if(x[i] < pivot) {
             border++
-            if(border != i) swap(x, border, i)
-            
+            if(border !== i) swap(x, border, i)
         }
         i++
     }
     border++
-    if(border != right) swap(x, border, right)
+    if(border !== right) swap(x, border, right)
 
-    standardQuick(x, left, border - 1)
-    standardQuick(x, border + 1, right)
+    quick(x, left, border - 1)
+    quick(x, border + 1, right)
+}
+
+const midPivot = (x, left, right) => {
+    const pivot = left + (right - left) / 2
+    const pivotValue = x[pivot]
+
+    swap(x, pivot, right)
+    
+    return pivotValue
 }
