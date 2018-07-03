@@ -11,5 +11,10 @@
   "devDependencies": {
     "babel-preset-env": "^1.6.1",
     "jest": "^22.2.2"
+  },
+  "dependencies": {
+    "tslint": "^5.10.0",
+    "tslint-config-prettier": "^1.13.0",
+    "typescript": "^2.9.2"
   }
 }
