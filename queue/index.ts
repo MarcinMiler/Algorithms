@@ -8,7 +8,7 @@ export class Queue {
     }
 
     public isEmpty(): Boolean {
-        return !this.linkedList
+        return !this.linkedList.head
     }
 
     public peek(): number | null {
