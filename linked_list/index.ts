@@ -1,8 +1,8 @@
 export class LinkedListNode {
-    data: number
+    data: any
     next: LinkedListNode | null
 
-    constructor(data: number, next: LinkedListNode | null = null) {
+    constructor(data: any, next: LinkedListNode | null = null) {
         this.data = data
         this.next = next
     }
@@ -12,7 +12,7 @@ export class LinkedList {
     public head: LinkedListNode | null
     public tail: LinkedListNode | null
 
-    public prepend(data: number): void {
+    public prepend(data: any): void {
         const newNode = new LinkedListNode(data, this.head)
 
         this.head = newNode
@@ -22,7 +22,7 @@ export class LinkedList {
         }
     }
 
-    public append(data: number): void {
+    public append(data: any): void {
         const newNode = new LinkedListNode(data)
 
         if (!this.head) {
@@ -37,27 +37,34 @@ export class LinkedList {
         }
     }
 
-    public delete(item: number) {
+    public delete(item: any): LinkedListNode | null {
         let currentNode = this.head
+        let deletedNode: LinkedListNode
 
         if (this.head && this.head.data === item) {
+            deletedNode = this.head
             this.head = this.head.next
+            return deletedNode
         }
 
         if (currentNode) {
             while (currentNode.next) {
+                console.log(currentNode.next.data)
                 if (currentNode.next.data === item) {
                     if (currentNode.next.next) {
+                        deletedNode = currentNode.next
                         currentNode.next = currentNode.next.next
-                        return
+                        return deletedNode
                     } else {
                         currentNode.next = null
-                        return
+                        return null
                     }
                 }
                 currentNode = currentNode.next
             }
         }
+
+        return null
     }
 
     public deleteHead(): LinkedListNode | null {
@@ -104,11 +111,21 @@ export class LinkedList {
         return deletedTail
     }
 
-    public search(item: number): LinkedListNode | null {
+    public search({
+        item,
+        callback
+    }: {
+        item?: any
+        callback?: (data: any) => Boolean
+    }): LinkedListNode | null {
         let currentNode = this.head
 
         if (currentNode) {
             while (currentNode.next) {
+                if (currentNode && callback && callback(currentNode.data)) {
+                    return currentNode
+                }
+
                 if (currentNode.data === item) return currentNode
                 currentNode = currentNode.next
             }

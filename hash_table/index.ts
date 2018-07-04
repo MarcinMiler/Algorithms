@@ -1,10 +1,12 @@
+import { LinkedList, LinkedListNode } from '../linked_list'
+
 export class HashTable {
-    public table: Array<any>
+    public table: Array<LinkedList>
     private tableSize: number
 
     public constructor(tableSize: number) {
         this.tableSize = tableSize
-        this.table = new Array(tableSize)
+        this.table = new Array(tableSize).fill(null).map(() => new LinkedList())
     }
 
     private hash(key: string): number {
@@ -19,7 +21,17 @@ export class HashTable {
     public put(key: string, value: any): void {
         const hash = this.hash(key)
 
-        this.table[hash] = value
+        const bucketLinkedList = this.table[hash]
+
+        const node = bucketLinkedList.search({
+            callback: (data: any): Boolean => data.key === key
+        })
+
+        if (!node) {
+            bucketLinkedList.append({ key, value })
+        } else {
+            console.log('Colision')
+        }
     }
 
     public find(key: string): any {
@@ -28,9 +40,18 @@ export class HashTable {
         return this.table[hash]
     }
 
-    public delete(key: string): void {
+    public delete(key: string): LinkedListNode | null {
         const hash = this.hash(key)
 
-        delete this.table[hash]
+        const bucketLinkedList = this.table[hash]
+
+        const node = bucketLinkedList.search({
+            callback: (data: any): Boolean => data.key === key
+        })
+
+        if (node) {
+            return bucketLinkedList.delete(node.data)
+        }
+        return null
     }
 }
