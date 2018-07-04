@@ -1,4 +1,4 @@
-class LinkedListNode {
+export class LinkedListNode {
     data: number
     next: LinkedListNode | null
 
@@ -8,7 +8,7 @@ class LinkedListNode {
     }
 }
 
-class LinkedList {
+export class LinkedList {
     public head: LinkedListNode | null
     public tail: LinkedListNode | null
 
@@ -28,6 +28,7 @@ class LinkedList {
         if (!this.head) {
             this.head = newNode
             this.tail = newNode
+            return
         }
 
         if (this.tail) {
@@ -57,6 +58,50 @@ class LinkedList {
                 currentNode = currentNode.next
             }
         }
+    }
+
+    public deleteHead(): LinkedListNode | null {
+        const deletedHead = this.head
+
+        if (!this.head) {
+            return null
+        }
+
+        if (this.head && this.head.next) {
+            this.head = this.head.next
+
+            return deletedHead
+        } else {
+            this.head = null
+            this.tail = null
+            return deletedHead
+        }
+    }
+
+    public deleteTail(): LinkedListNode | null {
+        if (this.head === this.tail) {
+            const deletedTail = this.tail
+            this.head = null
+            this.tail = null
+
+            return deletedTail
+        }
+
+        let currentNode = this.head
+        const deletedTail = this.tail
+
+        if (currentNode) {
+            while (currentNode.next) {
+                if (!currentNode.next.next) {
+                    currentNode.next = null
+                } else {
+                    currentNode = currentNode.next
+                }
+            }
+        }
+
+        this.tail = currentNode
+        return deletedTail
     }
 
     public search(item: number): LinkedListNode | null {
