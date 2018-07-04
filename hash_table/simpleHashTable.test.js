@@ -1,15 +1,13 @@
-import HashTable from './simpleHashTable'
+import HashTable from './index'
 
 describe('Simple hash table', () => {
     const users = new HashTable(100)
 
     test('Added new user', () => {
-        
         users.put('John', 'Vino')
         users.put('Mark', 'Adams')
 
-        expect(users.find('John'))
-        .toEqual('Vino')
+        expect(users.find('John')).toEqual('Vino')
     })
 
     test('Delete user', () => {
@@ -26,5 +24,4 @@ describe('Simple hash table', () => {
         const hash = users.hash('Aa')
         expect(hash).toEqual(162)
     })
-
 })
