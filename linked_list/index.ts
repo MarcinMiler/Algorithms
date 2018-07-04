@@ -9,13 +9,8 @@ class LinkedListNode {
 }
 
 class LinkedList {
-    private head: LinkedListNode | null
-    private tail: LinkedListNode | null
-
-    public constructor() {
-        this.head = null
-        this.tail = null
-    }
+    public head: LinkedListNode | null
+    public tail: LinkedListNode | null
 
     public prepend(data: number): void {
         const newNode = new LinkedListNode(data, this.head)
@@ -44,18 +39,19 @@ class LinkedList {
     public delete(item: number) {
         let currentNode = this.head
 
-        if (this.head) {
-            if (this.head.data === item) {
-                this.head = this.head.next
-            }
+        if (this.head && this.head.data === item) {
+            this.head = this.head.next
         }
 
         if (currentNode) {
             while (currentNode.next) {
-                console.log(currentNode.next.data, 'next')
                 if (currentNode.next.data === item) {
                     if (currentNode.next.next) {
                         currentNode.next = currentNode.next.next
+                        return
+                    } else {
+                        currentNode.next = null
+                        return
                     }
                 }
                 currentNode = currentNode.next
@@ -63,12 +59,12 @@ class LinkedList {
         }
     }
 
-    public search(item: number): number | null {
+    public search(item: number): LinkedListNode | null {
         let currentNode = this.head
 
         if (currentNode) {
             while (currentNode.next) {
-                if (currentNode.data === item) return currentNode.data
+                if (currentNode.data === item) return currentNode
                 currentNode = currentNode.next
             }
         }
@@ -89,12 +85,3 @@ class LinkedList {
         return array
     }
 }
-
-let lol = new LinkedList()
-lol.prepend(4)
-lol.prepend(3)
-lol.prepend(2)
-lol.prepend(1)
-
-lol.delete(4)
-console.log(lol.toArray())
