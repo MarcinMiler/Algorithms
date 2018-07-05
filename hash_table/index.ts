@@ -34,10 +34,18 @@ export class HashTable {
         }
     }
 
-    public find(key: string): any {
+    public get(key: string): any {
         const hash = this.hash(key)
 
-        return this.table[hash]
+        const bucketLinkedList = this.table[hash]
+
+        const node = bucketLinkedList.search({
+            callback: (data: any): Boolean => data.key === key
+        })
+
+        if (node) {
+            return node.data
+        }
     }
 
     public delete(key: string): LinkedListNode | null {
