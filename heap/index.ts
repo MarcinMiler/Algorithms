@@ -21,8 +21,24 @@ export class Heap {
         return this.getParentIndex(index) >= 0
     }
 
+    private hasLeftChild(index: number): Boolean {
+        return this.getLeftChildIndex(index) >= 0
+    }
+
+    private hasRightChild(index: number): Boolean {
+        return this.getRightChildIndex(index) >= 0
+    }
+
     private parent(index: number): number {
         return this.heap[this.getParentIndex(index)]
+    }
+
+    private leftChild(index: number): number {
+        return this.heap[this.getLeftChildIndex(index)]
+    }
+
+    private rightChild(index: number): number {
+        return this.heap[this.getRightChildIndex(index)]
     }
 
     private swap(indexOne: number, indexTwo: number): void {
@@ -41,6 +57,28 @@ export class Heap {
         }
     }
 
+    private heapifyDown(): void {
+        let currentIndex = 0
+
+        while (this.hasLeftChild(currentIndex)) {
+            let smallerChildIndex = this.getLeftChildIndex(currentIndex)
+
+            if (
+                this.hasRightChild &&
+                this.rightChild(currentIndex) < this.leftChild(currentIndex)
+            ) {
+                smallerChildIndex = this.getRightChildIndex(currentIndex)
+            }
+
+            if (this.heap[currentIndex] < this.heap[smallerChildIndex]) {
+                break
+            } else {
+                this.swap(currentIndex, smallerChildIndex)
+            }
+            currentIndex = smallerChildIndex
+        }
+    }
+
     public peek(): number | null {
         if (!this.heap) return null
 
@@ -53,5 +91,16 @@ export class Heap {
         this.heapifyUp()
     }
 
-    public pool(): void {}
+    public pool(): number {
+        if (this.heap.length === 1) {
+            this.heap.pop()
+        }
+
+        const firstItem = this.heap[0]
+
+        this.heap[0] = this.heap.pop() as number
+        this.heapifyDown()
+
+        return firstItem
+    }
 }
