@@ -5,41 +5,30 @@ export class Heap {
         this.heap = []
     }
 
-    private getLeftChildIndex(index: number): number {
-        return 2 * index + 1
-    }
+    private getLeftChildIndex = (index: number): number => 2 * index + 1
 
-    private getRightChildIndex(index: number): number {
-        return 2 * index + 2
-    }
+    private getRightChildIndex = (index: number): number => 2 * index + 2
 
-    private getParentIndex(index: number): number {
-        return Math.floor((index - 1) / 2)
-    }
+    private getParentIndex = (index: number): number =>
+        Math.floor((index - 1) / 2)
 
-    private hasParent(index: number): Boolean {
-        return this.getParentIndex(index) >= 0
-    }
+    private hasParent = (index: number): Boolean =>
+        this.getParentIndex(index) >= 0
 
-    private hasLeftChild(index: number): Boolean {
-        return this.getLeftChildIndex(index) >= 0
-    }
+    private hasLeftChild = (index: number): Boolean =>
+        this.getLeftChildIndex(index) >= 0
 
-    private hasRightChild(index: number): Boolean {
-        return this.getRightChildIndex(index) >= 0
-    }
+    private hasRightChild = (index: number): Boolean =>
+        this.getRightChildIndex(index) >= 0
 
-    private parent(index: number): number {
-        return this.heap[this.getParentIndex(index)]
-    }
+    private parent = (index: number): number =>
+        this.heap[this.getParentIndex(index)]
 
-    private leftChild(index: number): number {
-        return this.heap[this.getLeftChildIndex(index)]
-    }
+    private leftChild = (index: number): number =>
+        this.heap[this.getLeftChildIndex(index)]
 
-    private rightChild(index: number): number {
-        return this.heap[this.getRightChildIndex(index)]
-    }
+    private rightChild = (index: number): number =>
+        this.heap[this.getRightChildIndex(index)]
 
     private swap(indexOne: number, indexTwo: number): void {
         const temp = this.heap[indexOne]
