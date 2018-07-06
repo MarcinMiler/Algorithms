@@ -1,12 +1,18 @@
 import { LinkedList, LinkedListNode } from '../linked_list'
 
+interface Keys {
+    key: string
+}
+
 export class HashTable {
     public table: Array<LinkedList>
     private tableSize: number
+    private keys: Keys | {}
 
     public constructor(tableSize: number) {
-        this.tableSize = tableSize
         this.table = new Array(tableSize).fill(null).map(() => new LinkedList())
+        this.tableSize = tableSize
+        this.keys = {}
     }
 
     private hash(key: string): number {
@@ -20,6 +26,7 @@ export class HashTable {
 
     public put(key: string, value: any): void {
         const hash = this.hash(key)
+        this.keys[key] = hash
 
         const bucketLinkedList = this.table[hash]
 
@@ -49,6 +56,7 @@ export class HashTable {
 
     public delete(key: string): LinkedListNode | null {
         const hash = this.hash(key)
+        delete this.keys[key]
 
         const bucketLinkedList = this.table[hash]
 
@@ -60,5 +68,13 @@ export class HashTable {
             return bucketLinkedList.delete(node.data)
         }
         return null
+    }
+
+    public hasKey(key: string) {
+        return this.keys.hasOwnProperty(key)
+    }
+
+    public getKeys(): Array<string> {
+        return Object.keys(this.keys)
     }
 }
