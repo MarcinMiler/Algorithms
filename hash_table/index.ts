@@ -42,9 +42,8 @@ export class HashTable {
         const node = bucketLinkedList.search({
             callback: (data: any): Boolean => data.key === key
         })
-
         if (node) {
-            return node.data
+            return node.data.value
         }
     }
 

@@ -121,7 +121,7 @@ export class LinkedList {
         let currentNode = this.head
 
         if (currentNode) {
-            while (currentNode.next) {
+            while (currentNode) {
                 if (currentNode && callback && callback(currentNode.data)) {
                     return currentNode
                 }
