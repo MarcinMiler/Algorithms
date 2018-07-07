@@ -1,8 +1,25 @@
-import { BinaryTreeNode } from '../BinaryTreeNode'
+export class BinarySearchTreeNode {
+    //@ts-ignore
+    private parent: BinarySearchTreeNode | null
+    private left: BinarySearchTreeNode | null
+    private right: BinarySearchTreeNode | null
+    private value: any
 
-export class BinarySearchTreeNode extends BinaryTreeNode {
     public constructor(value: any = null) {
-        super(value)
+        this.value = value
+        this.parent = null
+        this.left = null
+        this.right = null
+    }
+
+    private setLeft(node: BinarySearchTreeNode) {
+        this.left = node
+        this.left.parent = this
+    }
+
+    private setRight(node: BinarySearchTreeNode) {
+        this.right = node
+        this.right.parent = this
     }
 
     public insert(value: any): BinarySearchTreeNode {
