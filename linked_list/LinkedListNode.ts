@@ -6,4 +6,8 @@ export class LinkedListNode<T> {
         this.data = data
         this.next = next
     }
+
+    toString(callback?: (node: T) => void) {
+        return callback ? callback(this.data) : `${this.data}`
+    }
 }

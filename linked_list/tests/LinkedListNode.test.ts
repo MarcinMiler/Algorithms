@@ -36,8 +36,3 @@ describe('Linked List Node', () => {
         expect(node2.next).toEqual(node1)
     })
 })
-//should create list node with value
-//should create list node with object as a value
-//should link nodes together
-//should convert node to string
-//should convert node to string with custom stringifier
