@@ -1,33 +1,31 @@
-import { LinkedList } from '../linked_list'
+import { LinkedList } from '../linked_list/LinkedList'
 
-export class Stack {
-    public linkedList: LinkedList
+export class Stack<T> {
+    linkedList: LinkedList<T>
 
-    public constructor() {
-        this.linkedList = new LinkedList()
+    constructor() {
+        this.linkedList = new LinkedList<T>()
     }
 
-    public isEmpty(): Boolean {
+    isEmpty() {
         return !this.linkedList.tail
     }
 
-    public peek(): number | null {
-        if (!this.linkedList.tail) return null
+    peek() {
+        if (!this.linkedList.head) return null
 
-        return this.linkedList.tail.data
+        return this.linkedList.head.data
     }
 
-    public push(data: number): void {
-        this.linkedList.append(data)
+    push(data: T) {
+        this.linkedList.prepend(data)
     }
 
-    public pop(): number | null {
-        const removedTail = this.linkedList.deleteTail()
-
-        return removedTail ? removedTail.data : null
+    pop() {
+        this.linkedList.deleteHead()
     }
 
-    public toArray(): Array<number> {
-        return this.linkedList.toArray().reverse()
+    toString(callback?: (data: T) => void) {
+        return this.linkedList.toString(callback)
     }
 }
