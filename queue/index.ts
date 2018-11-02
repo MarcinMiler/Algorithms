@@ -1,29 +1,33 @@
-import { LinkedList } from '../linked_list'
+import { LinkedList } from '../linked_list/LinkedList'
 
-export class Queue {
-    public linkedList: LinkedList
+export class Queue<T> {
+    linkedList: LinkedList<T>
 
-    public constructor() {
-        this.linkedList = new LinkedList()
+    constructor() {
+        this.linkedList = new LinkedList<T>()
     }
 
-    public isEmpty(): Boolean {
+    isEmpty() {
         return !this.linkedList.head
     }
 
-    public peek(): number | null {
+    peek() {
         if (!this.linkedList.head) return null
 
         return this.linkedList.head.data
     }
 
-    public enqueue(data: number): void {
+    enqueue(data: T) {
         this.linkedList.append(data)
     }
 
-    public dequeue(): number | null {
+    dequeue() {
         const removeHead = this.linkedList.deleteHead()
 
         return removeHead ? removeHead.data : null
+    }
+
+    toString(callback?: (node: T) => void) {
+        return this.linkedList.toString(callback)
     }
 }
