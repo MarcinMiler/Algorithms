@@ -111,7 +111,7 @@ export class LinkedList<T> {
 
         let currentNode = this.head
 
-        while (currentNode.next) {
+        while (currentNode) {
             if (callback && callback(currentNode.data)) {
                 return currentNode
             }
@@ -120,7 +120,7 @@ export class LinkedList<T> {
                 return currentNode
             }
 
-            currentNode = currentNode.next
+            currentNode = currentNode.next as any
         }
         return
     }
