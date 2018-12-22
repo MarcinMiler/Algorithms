@@ -1,9 +1,9 @@
 export class BinarySearchTreeNode {
     //@ts-ignore
-    private parent: BinarySearchTreeNode | null
-    private left: BinarySearchTreeNode | null
-    private right: BinarySearchTreeNode | null
-    private value: any
+    public parent: BinarySearchTreeNode | null
+    public left: BinarySearchTreeNode | null
+    public right: BinarySearchTreeNode | null
+    public value: any
 
     public constructor(value: any = null) {
         this.value = value
@@ -12,14 +12,52 @@ export class BinarySearchTreeNode {
         this.right = null
     }
 
-    private setLeft(node: BinarySearchTreeNode) {
-        this.left = node
-        this.left.parent = this
+    get leftHeight(): number {
+        if (!this.left) {
+            return 0
+        }
+
+        return this.left.leftHeight + 1
     }
 
-    private setRight(node: BinarySearchTreeNode) {
+    get rightHeight(): number {
+        if (!this.right) {
+            return 0
+        }
+
+        return this.right.rightHeight + 1
+    }
+
+    get maxHeight() {
+        return Math.max(this.leftHeight, this.rightHeight)
+    }
+
+    get balanceFactor() {
+        return this.leftHeight - this.rightHeight
+    }
+
+    public setLeft(node: BinarySearchTreeNode | null) {
+        if (this.left) {
+            this.left.parent = null
+        }
+
+        this.left = node
+
+        if (this.left) {
+            this.left.parent = this
+        }
+    }
+
+    public setRight(node: BinarySearchTreeNode | null) {
+        if (this.right) {
+            this.right.parent = null
+        }
+
         this.right = node
-        this.right.parent = this
+
+        if (this.right) {
+            this.right.parent = this
+        }
     }
 
     public insert(value: any): BinarySearchTreeNode {
