@@ -1,11 +1,11 @@
 export class BinarySearchTreeNode {
     //@ts-ignore
-    public parent: BinarySearchTreeNode | null
-    public left: BinarySearchTreeNode | null
-    public right: BinarySearchTreeNode | null
-    public value: any
+    parent: BinarySearchTreeNode | null
+    left: BinarySearchTreeNode | null
+    right: BinarySearchTreeNode | null
+    value: any
 
-    public constructor(value: any = null) {
+    constructor(value: any = null) {
         this.value = value
         this.parent = null
         this.left = null
@@ -36,7 +36,7 @@ export class BinarySearchTreeNode {
         return this.leftHeight - this.rightHeight
     }
 
-    public setLeft(node: BinarySearchTreeNode | null) {
+    setLeft(node: BinarySearchTreeNode | null) {
         if (this.left) {
             this.left.parent = null
         }
@@ -48,7 +48,7 @@ export class BinarySearchTreeNode {
         }
     }
 
-    public setRight(node: BinarySearchTreeNode | null) {
+    setRight(node: BinarySearchTreeNode | null) {
         if (this.right) {
             this.right.parent = null
         }
@@ -60,7 +60,7 @@ export class BinarySearchTreeNode {
         }
     }
 
-    public insert(value: any): BinarySearchTreeNode {
+    insert(value: any): BinarySearchTreeNode {
         if (this.value === null) {
             this.value = value
         }
@@ -90,7 +90,7 @@ export class BinarySearchTreeNode {
         return this
     }
 
-    public find(value: any): BinarySearchTreeNode | null {
+    find(value: any): BinarySearchTreeNode | null {
         if (this.value === value) return this
 
         if (this.value > value && this.left) {
@@ -104,7 +104,27 @@ export class BinarySearchTreeNode {
         return null
     }
 
-    public contains(value: any): boolean {
+    contains(value: any): boolean {
         return !!this.find(value)
+    }
+
+    traverseInOrder() {
+        let traverse: number[] = []
+
+        if (this.left) {
+            traverse = traverse.concat(this.left.traverseInOrder())
+        }
+
+        traverse.push(this.value)
+
+        if (this.right) {
+            traverse = traverse.concat(this.right.traverseInOrder())
+        }
+
+        return traverse
+    }
+
+    toString() {
+        return this.traverseInOrder().toString()
     }
 }

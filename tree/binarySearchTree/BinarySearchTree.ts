@@ -1,17 +1,21 @@
-import { BinarySearchTreeNode } from './BinarySearchTreeNode'
+import { BinarySearchTreeNode } from "./BinarySearchTreeNode"
 
 export class BinarySearchTree {
-    public root: BinarySearchTreeNode
+    root: BinarySearchTreeNode
 
-    public constructor() {
+    constructor() {
         this.root = new BinarySearchTreeNode(null)
     }
 
-    public insert(value: any): BinarySearchTreeNode {
+    insert(value: any): BinarySearchTreeNode {
         return this.root.insert(value)
     }
 
-    public contains(value: any): boolean {
+    contains(value: any): boolean {
         return this.root.contains(value)
+    }
+
+    toString() {
+        return this.root.toString()
     }
 }
