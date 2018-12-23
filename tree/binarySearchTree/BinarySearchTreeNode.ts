@@ -17,7 +17,7 @@ export class BinarySearchTreeNode {
             return 0
         }
 
-        return this.left.leftHeight + 1
+        return this.left.height + 1
     }
 
     get rightHeight(): number {
@@ -25,10 +25,10 @@ export class BinarySearchTreeNode {
             return 0
         }
 
-        return this.right.rightHeight + 1
+        return this.right.height + 1
     }
 
-    get maxHeight() {
+    get height() {
         return Math.max(this.leftHeight, this.rightHeight)
     }
 
