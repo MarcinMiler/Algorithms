@@ -1,14 +1,17 @@
-import { LinkedListNode } from './LinkedListNode'
+import { LinkedListNode } from "./LinkedListNode"
+import { Comparator } from "../utils/Comparator"
 
 const compare = (a: any, b: any) => a === b
 
 export class LinkedList<T> {
     head: LinkedListNode<T> | null
     tail: LinkedListNode<T> | null
+    compare: any
 
-    constructor() {
+    constructor(compareFunction?: any) {
         this.head = null
         this.tail = null
+        this.compare = new Comparator(compareFunction)
     }
 
     append(data: T) {
@@ -48,7 +51,7 @@ export class LinkedList<T> {
 
         if (currentNode) {
             while (currentNode.next) {
-                if (currentNode.next.data === item) {
+                if (this.compare.equal(currentNode.next.data, item)) {
                     if (currentNode.next.next) {
                         deletedNode = currentNode.next
                         currentNode.next = currentNode.next.next
@@ -116,7 +119,7 @@ export class LinkedList<T> {
                 return currentNode
             }
 
-            if (value && compare(currentNode.data, value)) {
+            if (value && this.compare.equal(currentNode.data, value)) {
                 return currentNode
             }
 
